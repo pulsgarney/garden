@@ -22,7 +22,7 @@ jobs:
           python -m mkdocs build --clean
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./site
+          path: ./docs/site
 
   publish:
     runs-on: ubuntu-latest
