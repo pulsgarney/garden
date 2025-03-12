@@ -10,6 +10,7 @@ Garden
 ## Todo
 
 - [x] Basic middleware feature
+- [ ] Add more middleware components
 - [ ] All the docs & readme
 - [ ] Demo examples
 - [ ] Tests
@@ -26,5 +27,7 @@ Garden
 WIP.
 
 ## Documentation
+
+https://pulsgarney.github.io/garden/
 
 WIP.
