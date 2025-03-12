@@ -1,13 +1,17 @@
 build:
+	@echo "Building Python packages..."
 	hatch build --clean
 
 doc-serve:
+	@echo "Serving documentation site locally..."
 	cd docs && mkdocs serve && cd ..
 
 doc-deploy:
+	@echo "Building documentation site and deploying to GitHub Pages..."
 	cd docs && mkdocs gh-deploy && cd ..
 
 check-typing:
+	@echo "Checking Python typing..."
 	mypy --pretty .
 
 check-python-version:

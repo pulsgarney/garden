@@ -15,8 +15,7 @@ jobs:
         with:
           python-version: "3.10"
       - uses: actions/configure-pages@v5
-      - name: Build doc
-        run: |
+      - run: |
           python -m pip install -r requirements-dev.txt
           cd docs
           python -m mkdocs build --clean
