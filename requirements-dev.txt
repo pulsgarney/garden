@@ -1,3 +1,4 @@
 hatch
 vermin
 mkdocs
+mkdocs-mermaid2-plugin

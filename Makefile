@@ -1,6 +1,12 @@
 build:
 	hatch build --clean
 
+doc-serve:
+	cd docs && mkdocs serve && cd ..
+
+doc-deploy:
+	cd docs && mkdocs gh-deploy && cd ..
+
 check-typing:
 	mypy --pretty .
 

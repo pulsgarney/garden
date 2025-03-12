@@ -1,0 +1,35 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - uses: actions/configure-pages@v5
+      - name: Build doc
+        run: |
+          python -m pip install -r requirements-dev.txt
+          cd docs
+          python -m mkdocs build --clean
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/deploy-pages@v4
