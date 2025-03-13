@@ -14,13 +14,15 @@ class MongoMiddleware(MiddlewareBase):
     _config: dict[str, Any] = {}
 
     @classmethod
-    def config(cls, *, host: str = 'localhost', port: int = 27017, **kwargs):
+    def config(
+        cls, *, host: str = 'localhost', port: int = 27017, **kwargs
+    ) -> type['MongoMiddleware']:
         cls._config = {'host': host, 'port': port, **kwargs}
 
         return cls
 
     @chainable
-    async def create(self):
+    async def create(self) -> 'MongoMiddleware':
         try:
             from pymongo import AsyncMongoClient
         except ImportError:
@@ -35,7 +37,7 @@ class MongoMiddleware(MiddlewareBase):
             self.log(f'Mongo initialized: {info['version']}')
 
     @chainable
-    async def destroy(self):
+    async def destroy(self) -> 'MongoMiddleware':
         await self._client.close()
 
         self.log('Mongo connection closed')

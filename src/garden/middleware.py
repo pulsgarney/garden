@@ -84,20 +84,20 @@ class MiddlewareBase(LoggingMixin, MiddlewareMixin, metaclass=MiddlewareMeta):
     dependencies: list[str] = []
 
     @classmethod
-    def config(cls, *args, **kwargs):
+    def config(cls, *args, **kwargs) -> None:
         '''
         Accepts anything that you would like to pass to the middleware
             as configurations.
         '''
 
     @chainable
-    async def create(self):
+    async def create(self) -> 'MiddlewareBase':
         '''
         Creates the middleware instance.
         '''
 
     @chainable
-    async def destroy(self):
+    async def destroy(self) -> 'MiddlewareBase':
         '''
         Destroys the middleware instance.
         '''
