@@ -10,10 +10,10 @@ class RedisMiddleware(MiddlewareBase):
     name = 'redis'
     dependency = ['redis']
 
-    _config: dict[str, str | int | None] = {}
+    _config: dict[str, int | str | None] = {}
 
     @classmethod
-    def config(cls, host: str = 'localhost', port: int = 6379, **kwargs):
+    def config(cls, *, host: str = 'localhost', port: int = 6379, **kwargs):
         cls._config = {'host': host, 'port': port, **kwargs}
 
         return cls
