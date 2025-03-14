@@ -51,9 +51,6 @@ class Hedgehog(DebugMixin, LoggingMixin, MiddlewareMixin):
         Number of errors the Hedgehog can tolerate before terminating.
     - task: Callable[..., None] | None = None,
         The task that the Hedgehog runs.
-    - replica_of: Callable[..., None] | None = None
-        When running in replications, this parameter helps the Hedgehog to
-            identify the sibling Hedgehog in the runtime.
     '''
 
     def __init__(
@@ -65,7 +62,6 @@ class Hedgehog(DebugMixin, LoggingMixin, MiddlewareMixin):
         repeat: bool | int = True,
         error_tolerance: int = 0,
         task: Callable[..., None] | None = None,
-        replica_of: Callable[..., None] | None = None,
     ) -> None:
         self.name = name
         self.delay = delay
@@ -73,7 +69,6 @@ class Hedgehog(DebugMixin, LoggingMixin, MiddlewareMixin):
         self.repeat = repeat
         self.error_tolerance = error_tolerance
         self.task = task
-        self.replica_of = replica_of
 
         self.run_count: int = 0
         self.error_count: int = 0
@@ -111,13 +106,10 @@ class Hedgehog(DebugMixin, LoggingMixin, MiddlewareMixin):
         '''
         Returns all siblings of the Hedgehog, i.e. the replicas.
         '''
-        if self.replica_of is None:
-            return []
-        else:
-            return filter(
-                lambda h: h.replica_of is self.replica_of,
-                cast(Gardener, self.gardener).hedgehogs,
-            )
+        return filter(
+            lambda h: h.task is self.task,
+            cast(Gardener, self.gardener).hedgehogs,
+        )
 
     def pause(self) -> None:
         self.status = HedgehogStatus.PAUSED
@@ -285,7 +277,6 @@ class Gardener(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
                         repeat=repeat,
                         error_tolerance=error_tolerance,
                         task=func,
-                        replica_of=func,
                     )
                 )
 
