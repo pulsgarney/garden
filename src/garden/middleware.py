@@ -2,7 +2,7 @@ import pkg_resources
 from typing import Any, cast
 
 from .decorator import chainable
-from .mixins import LoggingMixin, QueueMixin
+from .mixins import DebugMixin, LoggingMixin, QueueMixin
 
 
 class MiddlewareObject: ...
@@ -54,7 +54,9 @@ class MiddlewareMeta(type):
             MiddlewareMeta.middlewares[name] = cls
 
 
-class MiddlewareBase(LoggingMixin, MiddlewareMixin, metaclass=MiddlewareMeta):
+class MiddlewareBase(
+    DebugMixin, LoggingMixin, MiddlewareMixin, metaclass=MiddlewareMeta
+):
     '''
     MiddlewareBase is the template of all middlewares.
     All middlewares should have inherit from this class.
@@ -103,7 +105,7 @@ class MiddlewareBase(LoggingMixin, MiddlewareMixin, metaclass=MiddlewareMeta):
         '''
 
 
-class MiddlewareManager(LoggingMixin, MiddlewareMixin, QueueMixin):
+class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
     '''
     MiddlewareManager is the bridge between the Gardener and all middlewares.
 

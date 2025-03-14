@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any, cast
 
 from .middleware import MiddlewareMixin, MiddlewareManager
-from .mixins import LoggingMixin, QueueMixin
+from .mixins import DebugMixin, LoggingMixin, QueueMixin
 from .util import universal_execute as ue
 
 
@@ -30,7 +30,7 @@ class HedgehogStatus(Enum):
     TERMINATED = 'TERMINATED'
 
 
-class Hedgehog(LoggingMixin, MiddlewareMixin):
+class Hedgehog(DebugMixin, LoggingMixin, MiddlewareMixin):
     '''
     Hedgehog is a lightweight asynchronous worker for running tasks.
 
@@ -79,12 +79,6 @@ class Hedgehog(LoggingMixin, MiddlewareMixin):
         self.error_count: int = 0
         self.gardener: Gardener | None = None
         self.status: HedgehogStatus = HedgehogStatus.CREATED
-
-    def _get_debug(self) -> bool:
-        '''
-        Inherit the debug value from Gardener, default is False.
-        '''
-        return False if self.gardener is None else self.gardener.debug
 
     def _propagate_status(self) -> None:
         '''
@@ -235,7 +229,7 @@ class GardenerStatus(Enum):
     TERMINATED = 'TERMINATED'
 
 
-class Gardener(LoggingMixin, MiddlewareMixin, QueueMixin):
+class Gardener(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
     '''
     Gardener is a manager for Hedgehog instances, a singleton class.
     It will automatically create the Hedgehog instances based on the tasks.
@@ -253,8 +247,6 @@ class Gardener(LoggingMixin, MiddlewareMixin, QueueMixin):
 
     _hedgehogs: list[Hedgehog] = []
     _instances: dict[type['Gardener'], 'Gardener'] = {}
-
-    debug = False
 
     @classmethod
     def add_hedgehog(cls, hedgehog: Hedgehog) -> None:

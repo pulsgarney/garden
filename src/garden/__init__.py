@@ -10,7 +10,6 @@ from .garden import (
     Hedgehog,
     HedgehogStatus,
 )
-from .middleware import MiddlewareBase, MiddlewareMixin
 
 __all__ = [
     'Gardener',
