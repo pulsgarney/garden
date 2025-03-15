@@ -403,9 +403,9 @@ class Gardener(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
         self.status = GardenerStatus.RUNNING
 
         try:
-            for h in self.hedgehogs:
-                await self.add_task(h.run())
+            tasks = [h.run() for h in self.hedgehogs]
 
+            await self.add_task(asyncio.gather(*tasks))
             await self.add_task(self._status_monitoring())
         except Exception as e:
             self.log(f'has encountered an error: {e}', level='error')

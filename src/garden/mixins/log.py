@@ -37,6 +37,9 @@ class LoggingMixin:
         if self._get_debug() and level == 'error':
             level = 'exception'
 
+        if not isinstance(message, str):
+            message = str(message)
+
         getattr(logger, level)(
             ' '.join(filter(bool, [entity_type, name, message]))
         )
