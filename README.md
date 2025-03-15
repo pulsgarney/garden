@@ -15,7 +15,7 @@ Garden
 - [ ] Demo examples
 - [ ] Tests
 - [ ] Hooks for types & requirements
-- [ ] Github profiles
+- [x] Github profiles
 - [ ] CI/CD actions on GitHub
 
 ## Requiremtns
@@ -24,10 +24,16 @@ Garden
 
 ## Install
 
-WIP.
+Work in Progress. Currently engaged in a PyPI transfer to make it available on PyPI.
+
+As of now, installation is only possible from source as follows:
+
+```sh
+pip install -e <project path / url>
+```
 
 ## Documentation
 
 https://pulsgarney.github.io/garden/
 
-WIP.
+Work in Progress.
