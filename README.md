@@ -10,7 +10,7 @@ Garden
 ## Todo
 
 - [x] Basic middleware feature
-- [ ] Add more middleware components
+- [x] Add more middleware components
 - [ ] All the docs & readme
 - [ ] Demo examples
 - [ ] Tests
@@ -24,13 +24,11 @@ Garden
 
 ## Install
 
-Work in Progress. Currently engaged in a PyPI transfer to make it available on PyPI.
-
-As of now, installation is only possible from source as follows:
-
 ```sh
-pip install -e <project path / url>
+pip install garden
 ```
+
+Beta now.
 
 ## Documentation
 
