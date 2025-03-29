@@ -11,6 +11,8 @@ pip install garden
 
 ### Install from source
 
+For development, you can also install it from source like this:
+
 ```sh
 pip install -e <project path / url>
 ```
@@ -35,6 +37,15 @@ class TestGardener(Gardener):
 if __name__ == '__main__':
     TestGardener(name='TG').start()
 
+```
+
+In case you wish to run the service in debug mode, you can enable it like this:
+
+```python
+# rest of the code
+
+if __name__ == '__main__':
+    TestGardener(name='TG').enable_debug().start()
 ```
 
 Execute it in the same manner as any typical Python script.

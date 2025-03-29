@@ -3,7 +3,7 @@ repo_url: https://github.com/pulsgarney/garden
 site_url: https://pulsgarney.github.io/garden
 site_description: Garden is a simple asynchronous task management library for Python.
 site_author: Puls Garney
-copyright: © 2023 Garden. All rights reserved.
+copyright: © 2025 Garden. All rights reserved.
 theme: readthedocs
 plugins:
   - search
@@ -17,9 +17,11 @@ nav:
     - Tasks: concepts/tasks.md
     - Middleware: concepts/middleware.md
   - Examples:
+    - Lifecycle: examples/lifecycle.md
     - Redis: examples/redis.md
   - Development:
-    - Middleware: development/middleware.md
+    - Middlewares: development/middlewares.md
   - References:
     - Architecture: references/architecture.md
     - Lifecycle: references/lifecycle.md
+    - Changelog: changelog.md
