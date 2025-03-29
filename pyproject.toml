@@ -55,9 +55,9 @@ email = "me@pulsgarney.com"
 
 [project.urls]
 Homepage      = "https://github.com/pulsgarney/garden"
-Documentation = "https://github.com/pulsgarney/garden"
+Documentation = "https://pulsgarney.github.io/garden"
 Repository    = "https://github.com/pulsgarney/garden"
-Changelog     = "https://github.com/pulsgarney/garden"
+Changelog     = "https://pulsgarney.github.io/garden/changelog"
 
 [tool.hatch.version]
 path = "src/garden/__init__.py"
