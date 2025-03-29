@@ -9,7 +9,7 @@ class MongoMiddleware(MiddlewareBase):
     '''
 
     name = 'mongo'
-    dependency = ['pymongo']
+    dependencies = ['pymongo']
 
     _config: dict[str, Any] = {}
 

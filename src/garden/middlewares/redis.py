@@ -8,7 +8,7 @@ class RedisMiddleware(MiddlewareBase):
     '''
 
     name = 'redis'
-    dependency = ['redis']
+    dependencies = ['redis']
 
     _config: dict[str, int | str | None] = {}
 

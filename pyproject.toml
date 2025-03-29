@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "garden"
 dynamic = ["version"]
-dependencies = []
+dependencies = ["packaging >=21.0"]
 requires-python = ">=3.10"
 description = "Garden is a simple asynchronous task management library for Python."
 readme = "README.md"

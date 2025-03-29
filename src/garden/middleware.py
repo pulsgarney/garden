@@ -1,4 +1,9 @@
-import pkg_resources
+import operator
+from importlib.metadata import (
+    PackageNotFoundError,
+    version as get_package_version,
+)
+from packaging.version import Version, parse as parse_version
 from typing import Any, cast
 
 from .decorator import chainable
@@ -123,14 +128,13 @@ class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
 
     def check_dependency(self) -> None:
         has_missing_dependency = False
-        version_match_phrase = {
-            '<=': 'less than or equal to',
-            '>=': 'greater than or equal to',
-            '!=': 'not equal to',
-            '==': 'equal to',
-            '~=': 'compatible version limit',
-            '<': 'less than',
-            '>': 'greater than',
+        version_operators = {
+            '==': (operator.eq, 'equal to'),
+            '!=': (operator.ne, 'not equal to'),
+            '<=': (operator.le, 'less than or equal to'),
+            '>=': (operator.ge, 'greater than or equal to'),
+            '>': (operator.gt, 'greater than'),
+            '<': (operator.lt, 'less than'),
         }
 
         for name, cls in self.middlewares.items():
@@ -138,9 +142,9 @@ class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
 
             for dependency in cls.dependencies:
                 version_cmp: str | None = None
-                package_version: str | None | pkg_resources.parse_version
+                package_version: str | None | Version
 
-                for cmp in version_match_phrase.keys():
+                for cmp in version_operators.keys():
                     if cmp in dependency:
                         package_name, package_version = (
                             dependency.split(cmp)
@@ -157,27 +161,26 @@ class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
                     __import__(package_name)
 
                     if package_version is not None:
-                        version = pkg_resources.get_distribution(
-                            package_name
-                        ).version
-                        version = pkg_resources.parse_version(version)
-                        package_version = pkg_resources.parse_version(
-                            cast(str, package_version)
+                        installed_version = parse_version(
+                            get_package_version(package_name)
                         )
+                        target_version = parse_version(package_version)
 
-                        if version_cmp is not None and (
-                            eval(f'{version} {version_cmp} {package_version}')
-                        ):
-                            missing_dependency.append(
-                                f'Package "{package_name}" version ({version})'
-                                f' is {version_match_phrase[version_cmp]} '
-                                f'the required version ({package_version}).'
-                            )
+                        if version_cmp and version_cmp in version_operators:
+                            op, phrase = version_operators[version_cmp]
+
+                            if not op(installed_version, target_version):
+                                missing_dependency.append(
+                                    f'Package "{package_name}" '
+                                    f'version ({installed_version}) '
+                                    f'need to be {phrase} the '
+                                    f'required version ({package_version}).'
+                                )
                 except ImportError:
                     missing_dependency.append(
                         f'Package "{package_name}" is not installed.'
                     )
-                except pkg_resources.DistributionNotFound:
+                except PackageNotFoundError:
                     missing_dependency.append(
                         f'Package "{package_name}" is not found'
                         ' in the current environment.'
@@ -187,11 +190,11 @@ class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
                 has_missing_dependency = True
 
                 self.log(
-                    f'Missing dependencies for middlewares[{name}]', 'error'
+                    f'Missing dependencies for middlewares[{name}]', 'warning'
                 )
 
                 for message in missing_dependency:
-                    self.log(message, 'error')
+                    self.log(message, 'warning')
 
         if has_missing_dependency:
             raise ImportError('Dependency unresolved')

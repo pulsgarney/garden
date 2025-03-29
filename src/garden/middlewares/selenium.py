@@ -14,7 +14,7 @@ class SeleniumMiddleware(MiddlewareBase):
     '''
 
     name = 'selenium'
-    dependency = ['selenium', 'selenium_stealth', 'fake_useragent']
+    dependencies = ['selenium', 'selenium_stealth', 'fake_useragent']
 
     _config: dict[str, Any] = {}
 
