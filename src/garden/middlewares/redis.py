@@ -27,11 +27,16 @@ class RedisMiddleware(MiddlewareBase):
         except ImportError:
             self.log('Redis package not found, please install it')
         else:
-            self._client: redis.Redis = await redis.Redis(**self._config)
+            self._client: redis.StrictRedis = await redis.StrictRedis(
+                **self._config
+            )
 
             self.bind_object(RedisMiddleware.name, self._client)
 
-            self.log(f'Redis initialized: {await self._client.ping()}')
+            info = await self._client.info()
+            version = info.get('redis_version', 'unknown')
+
+            self.log(f'Redis initialized: {version}')
 
     @chainable
     async def destroy(self) -> 'RedisMiddleware':
