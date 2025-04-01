@@ -3,18 +3,18 @@ First step
 
 ## Installation
 
-### Install from pypi
+### PyPI
 
 ```sh
 pip install garden
 ```
 
-### Install from source
+### Source
 
-For development, you can also install it from source like this:
+For development, you can also install it in editable mode like this:
 
 ```sh
-pip install -e <project path / url>
+pip install -e <path/url>
 ```
 
 ## Your first task
@@ -39,6 +39,14 @@ if __name__ == '__main__':
 
 ```
 
+Execute it in the same manner as any typical Python script.
+
+```sh
+python example.py
+```
+
+## How to debug
+
 In case you wish to run the service in debug mode, you can enable it like this:
 
 ```python
@@ -48,8 +56,20 @@ if __name__ == '__main__':
     TestGardener(name='TG').enable_debug().start()
 ```
 
-Execute it in the same manner as any typical Python script.
+Both the `Gardener` and `Hedgehog` instances have the methods to enable or disable debug mode. This is particularly useful for logging detailed information during development.
 
-```sh
-python example.py
+The key difference between enabling and disabling debug mode is that when it's enabled, when an exception occurs, it will print the traceback stack and the error message, which is helpful for debugging purposes. But when it's disabled, it only logs the error message without the traceback stack.
+
+```python
+# to enable debug mode
+Gardener().enable_debug().start()
+
+(task: Hedgehog).enable_debug()
+
+
+# to disable debug mode
+Gardener().disable_debug().start()
+
+(task: Hedgehog).disable_debug()
+
 ```

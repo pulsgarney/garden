@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 ## Output
 
-```
+```log
 > python examples/lifecycle.py
 2025-03-31 03:35:25 INFO::Hedgehog [Test Task] created
 2025-03-31 03:35:25 INFO::TestGardener [TG] initiated

@@ -18,7 +18,10 @@ nav:
     - Middleware: concepts/middleware.md
   - Examples:
     - Lifecycle: examples/lifecycle.md
+    - MongoDB: examples/mongodb.md
     - Redis: examples/redis.md
+    - Selenium: examples/selenium.md
+    - State: examples/state.md
   - Development:
     - Middlewares: development/middlewares.md
   - References:

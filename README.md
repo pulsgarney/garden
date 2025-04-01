@@ -12,7 +12,7 @@ Garden
 - [x] Basic middleware feature
 - [x] Add more middleware components
 - [ ] All the docs & readme
-- [ ] Demo examples
+- [x] Demo examples & docs
 - [ ] Tests
 - [ ] Hooks for types & requirements
 - [x] Github profiles
@@ -20,7 +20,7 @@ Garden
 
 ## Requiremtns
   * Python 3.10+
-  * No OS specific features required, should be working on all systems that supports Python.
+  * No OS specific features required, should be working on all systems that support Python.
 
 ## Install
 
@@ -30,8 +30,12 @@ pip install garden
 
 Beta now.
 
+[![PyPI Downloads](https://static.pepy.tech/badge/garden)](https://pepy.tech/projects/garden)
+
 ## Documentation
 
 https://pulsgarney.github.io/garden/
+
+[Basics](https://pulsgarney.github.io/garden/) & [Examples](https://pulsgarney.github.io/garden/examples/lifecycle/) done now.
 
 Work in Progress.

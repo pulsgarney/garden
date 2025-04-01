@@ -48,9 +48,11 @@ if __name__ == '__main__':
 
 ```
 
+*NOTE: For any parameters in the form of key-value pairs that you wish to pass to the initiation of the Redis client, you can pass them as keyword arguments to the `config` method of `RedisMiddleware`.*
+
 ## Output
 
-```
+```log
 > python examples/use_redis.py
 2025-03-31 03:59:46 INFO::Hedgehog [Test Task - SET] created
 2025-03-31 03:59:46 INFO::Hedgehog [Test Task - GET] created
