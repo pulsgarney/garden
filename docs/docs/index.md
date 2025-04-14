@@ -8,7 +8,7 @@ Introduction to Garden
 ## Requirements
 
   * Python 3.10+
-  * No OS specific features required, should be working on all systems that supports Python.
+  * No OS specific features required, should be working on all systems that support Python.
 
 ## How it works
 

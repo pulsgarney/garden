@@ -24,13 +24,13 @@ This represents the fundamental usage of Garden. By subclassing the `Gardener` c
 ```python
 # example.py
 
-from garden import Gardener
+from garden import Gardener, Hedgehog
 
 
 class TestGardener(Gardener):
 
     @Gardener.task('Test', repeat=False)
-    async def test_task(task):
+    async def test_task(self, task: Hedgehog):
         task.log('test task executed 👌')
 
 
