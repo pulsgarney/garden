@@ -2,6 +2,12 @@ name: Deploy MkDocs to GitHub Pages
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
 
 permissions:
   contents: read
