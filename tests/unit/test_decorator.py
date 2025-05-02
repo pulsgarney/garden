@@ -1,6 +1,6 @@
 import pytest
 import pytest_asyncio
-from src.garden.decorator import chainable
+from garden.decorator import chainable
 
 
 class ChainableTestClass:

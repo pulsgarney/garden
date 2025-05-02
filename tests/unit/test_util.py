@@ -1,6 +1,6 @@
 import pytest
 import asyncio
-from src.garden.util import universal_execute
+from garden.util import universal_execute
 
 
 @pytest.mark.asyncio
