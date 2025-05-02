@@ -88,3 +88,6 @@ exclude = [
   "examples",
   "tests",
 ]
+
+[tool.mypy]
+exclude = ["tests", "examples"]

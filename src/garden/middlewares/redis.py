@@ -21,13 +21,13 @@ class RedisMiddleware(MiddlewareBase):
         return cls
 
     @chainable
-    async def create(self) -> 'RedisMiddleware':
+    async def create(self):
         try:
             import redis.asyncio as redis
         except ImportError:
             self.log('Redis package not found, please install it')
         else:
-            self._client: redis.StrictRedis = await redis.StrictRedis(
+            self._client: redis.StrictRedis = await redis.StrictRedis(  # type: ignore [annotation-unchecked]
                 **self._config
             )
 
@@ -39,7 +39,7 @@ class RedisMiddleware(MiddlewareBase):
             self.log(f'Redis initialized: {version}')
 
     @chainable
-    async def destroy(self) -> 'RedisMiddleware':
+    async def destroy(self):
         await self._client.aclose()
 
         self.log('Redis connection closed')

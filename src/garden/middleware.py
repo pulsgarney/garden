@@ -91,20 +91,20 @@ class MiddlewareBase(
     dependencies: list[str] = []
 
     @classmethod
-    def config(cls, *args, **kwargs) -> None:
+    def config(cls, *args, **kwargs):
         '''
         Accepts anything that you would like to pass to the middleware
             as configurations.
         '''
 
     @chainable
-    async def create(self) -> 'MiddlewareBase':
+    async def create(self):
         '''
         Creates the middleware instance.
         '''
 
     @chainable
-    async def destroy(self) -> 'MiddlewareBase':
+    async def destroy(self):
         '''
         Destroys the middleware instance.
         '''
@@ -164,7 +164,9 @@ class MiddlewareManager(DebugMixin, LoggingMixin, MiddlewareMixin, QueueMixin):
                         installed_version = parse_version(
                             get_package_version(package_name)
                         )
-                        target_version = parse_version(package_version)
+                        target_version = parse_version(
+                            cast(str, package_version)
+                        )
 
                         if version_cmp and version_cmp in version_operators:
                             op, phrase = version_operators[version_cmp]

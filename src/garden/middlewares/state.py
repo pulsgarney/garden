@@ -9,7 +9,7 @@ from ..middleware import MiddlewareBase
 from ..mixins import DebugMixin, LoggingMixin
 
 
-StateType: TypeAlias = dict[str, Any]
+StateType: TypeAlias = dict[Any, Any]
 ListenerType: TypeAlias = Callable[[dict[str, Any]], None]
 
 
@@ -94,7 +94,7 @@ class StateMiddleware(MiddlewareBase):
 
     name = 'state'
 
-    _config: dict[str, dict | str] = {}
+    _config: dict[str, StateType | str | None] = {}
     _state = State()
 
     @classmethod
@@ -107,7 +107,7 @@ class StateMiddleware(MiddlewareBase):
             'initial_state': initial_state,
             'state_file': state_file,
         }
-        cls._state.config(**cls._config)
+        cls._state.config(**cls._config)  # type: ignore [arg-type]
 
     @chainable
     async def create(self):

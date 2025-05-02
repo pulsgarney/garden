@@ -48,7 +48,7 @@ class SeleniumMiddleware(MiddlewareBase):
         return cls
 
     @chainable
-    async def create(self) -> 'SeleniumMiddleware':
+    async def create(self):
         try:
             from selenium import webdriver
             from selenium_stealth import stealth
@@ -137,4 +137,4 @@ class SeleniumMiddleware(MiddlewareBase):
             self.bind_object(SeleniumMiddleware.name, open_selenium_session)
 
     @chainable
-    async def destroy(self) -> 'SeleniumMiddleware': ...
+    async def destroy(self): ...

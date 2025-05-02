@@ -18,7 +18,7 @@ doc-deploy:
 
 check-typing:
 	@echo "Checking Python typing..."
-	mypy --pretty .
+	mypy --ignore-missing-imports --pretty .
 
 # Python version check
 

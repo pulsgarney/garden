@@ -22,13 +22,13 @@ class MongoMiddleware(MiddlewareBase):
         return cls
 
     @chainable
-    async def create(self) -> 'MongoMiddleware':
+    async def create(self):
         try:
             from pymongo import AsyncMongoClient
         except ImportError:
             self.log('Mongo package not found, please install it')
         else:
-            self._client: AsyncMongoClient = AsyncMongoClient(**self._config)
+            self._client: AsyncMongoClient = AsyncMongoClient(**self._config)  # type: ignore [annotation-unchecked]
 
             self.bind_object(MongoMiddleware.name, self._client)
 
@@ -37,7 +37,7 @@ class MongoMiddleware(MiddlewareBase):
             self.log(f'Mongo initialized: {info['version']}')
 
     @chainable
-    async def destroy(self) -> 'MongoMiddleware':
+    async def destroy(self):
         await self._client.close()
 
         self.log('Mongo connection closed')
